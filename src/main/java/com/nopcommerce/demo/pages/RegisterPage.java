@@ -20,11 +20,15 @@ public class RegisterPage extends Utility {
 
     By yearDOB = By.xpath("//select[@name='DateOfBirthYear']");
 
-    By eMail = By.xpath("//input[@id='Email']");
+    By eMailField = By.xpath("//input[@id='Email']");
 
-    By password = By.xpath("//input[@id='Password']");
+    By passwordField = By.xpath("//input[@id='Password']");
 
-    By registerButton = By.xpath("//input[@id='register-button']");
+    By confirmPasswordField = By.xpath("//input[@id='ConfirmPassword']");
+
+    By registerButton = By.xpath("//a[@class='ico-register']");
+
+    By registerButtonFinish = By.xpath("//button[@id='register-button']");
 
     By firstNameMsg = By.xpath("//span[@id='FirstName-error']");
 
@@ -64,7 +68,7 @@ public class RegisterPage extends Utility {
 
     public void selectMonthDOB() {
         Reporter.log("Choose Day " + monthDOB.toString());
-        selectByContainsTextFromDropDown(monthDOB,"5");
+        selectByContainsTextFromDropDown(monthDOB,"April");
     }
 
     public void selectYearDOB() {
@@ -72,12 +76,16 @@ public class RegisterPage extends Utility {
         selectByContainsTextFromDropDown(yearDOB,"2000");
     }
 
-    public void enterEmail() {
-        sendTextToElement(eMail,"Kirtz_777@hotmail.co.uk");
+    public void enterEmail(String email) {
+        sendTextToElement(eMailField,email);
     }
 
-    public void enterPassword() {
-        sendTextToElement(password,"Testing123");
+    public void enterPassword(String password) {
+        sendTextToElement(passwordField,password);
+    }
+
+    public void enterConfirmPassword(String password) {
+        sendTextToElement(confirmPasswordField,password);
     }
 
     public void clickOnRegisterButton() {
@@ -101,12 +109,18 @@ public class RegisterPage extends Utility {
     }
 
     public String getRegistrationSuccessMessage() {
+        Reporter.log("Click on continue button " + registrationMsg.toString());
         return getTextFromElement(registrationMsg);
     }
 
     public void clickOnContinueButton(){
         Reporter.log("Click on continue button " + continueButton.toString());
         clickOnElement(continueButton);
+    }
+
+    public void clickOnRegisterButtonFinish(){
+        Reporter.log("Clicked on REGISTER button on page " + registerButtonFinish.toString());
+        clickOnElement(registerButtonFinish);
     }
 
 }

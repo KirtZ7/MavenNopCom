@@ -13,13 +13,13 @@ import utility.Utility;
 public class HomePage extends Utility {
 
     // all menu buttons
-    By computersMenu = By.linkText("Computers ") ;
-    By electronicsMenu = By.linkText("Electronics ") ;
-    By apparelMenu = By.linkText("Apparel ") ;
-    By digitalDownloadsMenu = By.linkText("Digital downloads ") ;
-    By books = By.linkText("Books ") ;
-    By jewelryMenu = By.linkText("Jewelry ") ;
-    By giftCardsMenu = By.linkText("Gift Cards ") ;
+    By computersMenu = By.xpath("//ul[@class='top-menu notmobile']//a[contains(text(),'Computers')]");
+    By electronicsMenu = By.xpath("//ul[@class='top-menu notmobile']//a[contains(text(),'Electronics')]");
+    By apparelMenu = By.xpath("//ul[@class='top-menu notmobile']//a[contains(text(),'Apparel')]");
+    By digitalDownloadsMenu = By.xpath("//ul[@class='top-menu notmobile']//a[contains(text(),'Digital downloads')]");
+    By books = By.xpath("//ul[@class='top-menu notmobile']//a[contains(text(),'Books')]");
+    By jewelryMenu = By.xpath("//ul[@class='top-menu notmobile']//a[contains(text(),'Jewelry')]");
+    By giftCardsMenu = By.xpath("//ul[@class='top-menu notmobile']//a[contains(text(),'Gift Cards')]");
 
     By myAccountLink = By.xpath("//a[@class=\"ico-account\"]");
 

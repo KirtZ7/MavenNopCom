@@ -116,6 +116,19 @@ public class Utility extends ManageDriver {
         }
     }
 
+    //selectRadioButton Method
+    public void selectRadioButton(By locator, String os) {
+        WebElement radioButton = driver.findElement(locator);
+        radioButton.click();
+    }
+
+    //selectCheckBox Method
+    public void selectCheckBox(By locator, String software) {
+        WebElement checkBox = driver.findElement(locator);
+        if (!checkBox.isSelected()) {
+            checkBox.click();
+        }
+    }
 //*************************** Window Handle Methods ***************************************//
 
     /**

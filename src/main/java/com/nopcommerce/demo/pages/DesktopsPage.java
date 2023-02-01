@@ -12,10 +12,19 @@ public class DesktopsPage  extends Utility {
 
     By selectProductList = By.xpath("//a[@class=\"viewmode-icon list\"]");
 
-    public void getDesktopsText() {
-        Reporter.log("Desktops link was pressed " + desktopsText.toString());
-        getTextFromElement(desktopsText);
+    By buildYourOwnComputerButton = By.xpath("//h2[@class='product-title']/a[text()='Build your own computer']");
+
+    public void clickOnBuildYourOwnComputer(){
+        Reporter.log("Clicking on Build your own computer: " + buildYourOwnComputerButton.toString());
+        clickOnElement(buildYourOwnComputerButton);
     }
+
+
+    public String getDesktopsText() {
+        Reporter.log("Desktops link was pressed " + desktopsText.toString());
+        return getTextFromElement(desktopsText);
+    }
+
 
     public void getSortBy(){
         Reporter.log("Sort by text " + sortBy.toString());
@@ -28,7 +37,7 @@ public class DesktopsPage  extends Utility {
     }
 
     public void getSelectProductList(){
-        Reporter.log("Product list icons ");
+        Reporter.log("Product list icons " + selectProductList.toString());
         clickOnElement(selectProductList);
     }
 

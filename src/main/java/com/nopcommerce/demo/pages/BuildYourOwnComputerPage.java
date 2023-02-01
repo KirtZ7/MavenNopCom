@@ -1,11 +1,8 @@
 package com.nopcommerce.demo.pages;
 
 import org.openqa.selenium.By;
-import org.testng.Assert;
 import org.testng.Reporter;
 import utility.Utility;
-
-import java.util.Collections;
 
 
 public class BuildYourOwnComputerPage extends Utility {
@@ -19,45 +16,39 @@ public class BuildYourOwnComputerPage extends Utility {
     By addToCartButton = By.xpath("//button[@id='add-to-cart-button-1']");
     By productAddedToCartMessage = By.xpath("//div[@class='bar-notification success']");
 
-    public void verifyBuildYourOwnComputerText(){
+    public String verifyBuildYourOwnComputerText(){
         Reporter.log("Build your own computer text displayed: " + this.buildYourOwnComputerText.toString());
-    }
-
-    public void selectProcessor(){
-        Reporter.log("Selecting Processor: " + processorDropDown.toString());
-        selectByIndexFromDropDown(By.xpath("//select[@id='product_attribute_1']"),1);
-    }
-
-    public void selectRam(){
-        Reporter.log("Selecting RAM: " + ramDropDown.toString());
-        selectByIndexFromDropDown(By.xpath("//select[@id='product_attribute_2']"), 2);
-
-    }
-
-    public void selectHDD(){
-        Reporter.log("Selecting HDD: " + hddRadios.toString());
-        clickOnElement(By.xpath("//li[@data-attr-value='7']"));
+        return getTextFromElement(buildYourOwnComputerText);
     }
 
 
-    public void selectOS(){
-        Reporter.log("Selecting OS: " + osRadio.toString());
-        clickOnElement(By.xpath("//li[@data-attr-value='8']"));
+    public void selectProcessor(String processor) {
+        selectByVisibleTextFromDropDown(processorDropDown, processor);
     }
 
-    public void selectSoftware(){
-        Reporter.log("Selecting software: " + softwareCheckBoxes.toString());
-        clickOnElement(By.xpath("//li[@data-attr-value='12']"));
+    public void selectRam(String ram) {
+        selectByVisibleTextFromDropDown(ramDropDown, ram);
     }
 
-    public void clickOnAddToCartButton(){
-        Reporter.log("Clicking on Add To Cart button: " + addToCartButton.toString());
+    public void selectHDD(String hdd) {
+        selectRadioButton(hddRadios, hdd);
+    }
+
+    public void selectOS(String os) {
+        selectRadioButton(osRadio, os);
+    }
+
+    public void selectSoftware(String software) {
+        selectCheckBox(softwareCheckBoxes, software);
+    }
+
+    public void clickOnAddToCartButton() {
         clickOnElement(addToCartButton);
     }
 
-    public void verifyProductAddedToCartMessage(){
-        Reporter.log("Product added to cart message displayed: " + productAddedToCartMessage.toString());
-
+    public String getProductAddedToCartMessage() {
+        return getTextFromElement(productAddedToCartMessage);
     }
+
 
 }
