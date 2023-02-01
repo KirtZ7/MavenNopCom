@@ -54,7 +54,7 @@ public class LoginPageTest extends TestBase {
         // verify that logout link is displayed
         homepage.clickOnLoginLink();
         String email = "kirtz_777@hotmail.co.uk";
-        String password = "123456test";
+        String password = "123456Test";
         loginPage.enterEmailId(email);
         loginPage.enterPassword(password);
         loginPage.clickOnLoginButton();
