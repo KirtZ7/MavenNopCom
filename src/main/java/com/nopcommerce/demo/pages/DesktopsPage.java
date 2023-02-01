@@ -12,7 +12,8 @@ public class DesktopsPage  extends Utility {
 
     By selectProductList = By.xpath("//a[@class=\"viewmode-icon list\"]");
 
-    By buildYourOwnComputerButton = By.xpath("//h2[@class='product-title']/a[text()='Build your own computer']");
+    //By buildYourOwnComputerButton = By.linkText("Build your own computer");
+    By buildYourOwnComputerButton = By.xpath("//h2[@class='product-title']//a[contains(text(),'Build your own computer')]");
 
     public void clickOnBuildYourOwnComputer(){
         Reporter.log("Clicking on Build your own computer: " + buildYourOwnComputerButton.toString());
