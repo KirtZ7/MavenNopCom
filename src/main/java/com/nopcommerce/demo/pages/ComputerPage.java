@@ -1,35 +1,42 @@
 package com.nopcommerce.demo.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.testng.Reporter;
-import utility.Utility;
+import com.nopcommerce.demo.utility.Utility;
 
 public class ComputerPage extends Utility  {
+    public ComputerPage(){
+        PageFactory.initElements(driver,this);
+    }
 
-    By computerText = By.xpath("//a[contains(text(),\"Computers\")]");
+    @FindBy(xpath = "//a[contains(text(),\"Computers\")]")
+    WebElement computerText;
 
-    By desktopLink = By.xpath("//a[contains(text(),\" Desktops \")]") ;
+    @FindBy(xpath = "//a[contains(text(),\" Desktops \")]")
+    WebElement desktopLink;
 
-    By noteBookLink = By.xpath("//a[contains(text(),\" Notebooks \")]");
+    @FindBy(xpath = "//a[contains(text(),\" Notebooks \")]")
+    WebElement noteBookLink;
 
-    By softwareLink = By.xpath("//a[contains(text(),\" Software \")]");
+    @FindBy(xpath = "//a[contains(text(),\" Software \")]")
+    WebElement softwareLink;
+
 
     //click on the buttons
     public void clickOnComputerText(){
-        Reporter.log("computer text " + computerText.toString());
         clickOnElement(computerText);
     }
 
 
     public String getComputerText() {
-        Reporter.log("Computer text shown " + computerText.toString());
         return getTextFromElement(computerText);
     }
 
     public void clickOnDesktopLink(){
-        Reporter.log("Desktop link is pressed " + desktopLink.toString());
         clickOnElement(desktopLink);
-        getTextFromElement(desktopLink);
     }
 
     public String getDesktopsText() {
@@ -37,9 +44,7 @@ public class ComputerPage extends Utility  {
     }
 
     public void clickOnNoteBookText(){
-        Reporter.log("Notebook link ia pressed " +noteBookLink.toString());
         clickOnElement(noteBookLink);
-        getTextFromElement(noteBookLink);
     }
 
     public String getNoteBookText() {
@@ -47,9 +52,7 @@ public class ComputerPage extends Utility  {
     }
 
     public void clickOnSoftwareText(){
-        Reporter.log("Software button is clicked " + softwareLink.toString());
         clickOnElement(softwareLink);
-        getTextFromElement(softwareLink);
     }
 
     public String softwareText() {

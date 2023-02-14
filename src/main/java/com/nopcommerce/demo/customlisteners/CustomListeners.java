@@ -4,8 +4,7 @@ import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 import org.testng.Reporter;
-import utility.Utility;
-
+import com.nopcommerce.demo.utility.Utility;
 
 public class CustomListeners implements ITestListener {
 

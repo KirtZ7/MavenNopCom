@@ -1,8 +1,9 @@
 package com.nopcommerce.demo.pages;
 
-import org.openqa.selenium.By;
-import org.testng.Reporter;
-import utility.Utility;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import com.nopcommerce.demo.utility.Utility;
+import org.openqa.selenium.support.PageFactory;
 
 /**
  * Created by Bhavesh
@@ -12,75 +13,85 @@ import utility.Utility;
 //setting up all the paths and methods
 public class HomePage extends Utility {
 
+    public HomePage(){
+        PageFactory.initElements(driver,this);
+    }
+
     // all menu buttons
-    By computersMenu = By.xpath("//ul[@class='top-menu notmobile']//a[contains(text(),'Computers')]");
-    By electronicsMenu = By.xpath("//ul[@class='top-menu notmobile']//a[contains(text(),'Electronics')]");
-    By apparelMenu = By.xpath("//ul[@class='top-menu notmobile']//a[contains(text(),'Apparel')]");
-    By digitalDownloadsMenu = By.xpath("//ul[@class='top-menu notmobile']//a[contains(text(),'Digital downloads')]");
-    By books = By.xpath("//ul[@class='top-menu notmobile']//a[contains(text(),'Books')]");
-    By jewelryMenu = By.xpath("//ul[@class='top-menu notmobile']//a[contains(text(),'Jewelry')]");
-    By giftCardsMenu = By.xpath("//ul[@class='top-menu notmobile']//a[contains(text(),'Gift Cards')]");
 
-    By myAccountLink = By.xpath("//a[@class=\"ico-account\"]");
+    @FindBy(xpath = "//ul[@class='top-menu notmobile']//a[contains(text(),'Computers')]")
+    WebElement computersMenu;
+    @FindBy (xpath = "//ul[@class='top-menu notmobile']//a[contains(text(),'Electronics')]")
+    WebElement electronicsMenu;
+    @FindBy (xpath = "//ul[@class='top-menu notmobile']//a[contains(text(),'Apparel')]")
+    WebElement apparelMenu;
+    @FindBy (xpath = "//ul[@class='top-menu notmobile']//a[contains(text(),'Digital downloads')]")
+    WebElement digitalDownloadsMenu;
 
-    By logOut = By.xpath("//a[@class=\"ico-logout\"]");
+    @FindBy (xpath = "//ul[@class='top-menu notmobile']//a[contains(text(),'Books')]")
+    WebElement books;
 
-    By loginLink = By.linkText("Log in");
-    By registerLink = By.linkText("Register");
+    @FindBy (xpath = "//ul[@class='top-menu notmobile']//a[contains(text(),'Jewelry')]")
+    WebElement jewelryMenu;
+
+    @FindBy (xpath = "//ul[@class='top-menu notmobile']//a[contains(text(),'Gift Cards')]")
+    WebElement giftCardsMenu;
+
+
+    @FindBy (xpath = "//a[@class=\"ico-account\"]")
+            WebElement myAccountLink;
+
+    @FindBy(xpath = "//a[@class=\\\"ico-logout\\\"]")
+    WebElement logOut;
+
+    @FindBy(xpath = "//a[@class='ico-login']")
+    WebElement loginLink;
+
+    @FindBy(xpath = "//a[@class='ico-register']")
+    WebElement registerLink;
 
     public void clickOnComputersMenu() {
-        Reporter.log("Clicking on computers menu " + computersMenu.toString());
         clickOnElement(computersMenu);
     }
 
     public void clickOnElectronicsMenu() {
-        Reporter.log("Clicking on electronics menu " + electronicsMenu.toString());
         clickOnElement(electronicsMenu);
     }
 
     public void clickOnApparelMenu() {
-        Reporter.log("Clicking on apparel menu " + apparelMenu.toString());
         clickOnElement(apparelMenu);
     }
 
     public void clickOnDigitalDownloadsMenu() {
-        Reporter.log("Clicking on digital downloads menu " + digitalDownloadsMenu.toString());
         clickOnElement(digitalDownloadsMenu);
     }
 
     public void clickOnBooks() {
-        Reporter.log("Clicking on books " + books.toString());
         clickOnElement(books);
     }
 
     public void clickOnJewelryMenu() {
-        Reporter.log("Clicking on jewelry menu " + jewelryMenu.toString());
         clickOnElement(jewelryMenu);
     }
 
     public void clickOnGiftCardsMenu() {
-        Reporter.log("Clicking on gift cards menu " + giftCardsMenu.toString());
         clickOnElement(giftCardsMenu);
     }
 
     public void clickOnMyAccountLink() {
-        Reporter.log("Clicking on my account link " + myAccountLink.toString());
         clickOnElement(myAccountLink);
     }
 
     public void clickOnLogOut() {
-        Reporter.log("Clicking on log out link " + logOut.toString());
         clickOnElement(logOut);
     }
 
 
-    public void clickOnLoginLink() {
-        Reporter.log("Clicking on login button " + loginLink.toString());
+    public void clickOnLoginLink(){
         clickOnElement(loginLink);
     }
 
     public void clickOnRegisterLink() {
-        Reporter.log("Click on register link "+ registerLink.toString());
         clickOnElement(registerLink);
     }
 

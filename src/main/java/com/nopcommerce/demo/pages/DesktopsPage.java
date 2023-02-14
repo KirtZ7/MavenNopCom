@@ -1,45 +1,53 @@
 package com.nopcommerce.demo.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.testng.Reporter;
-import utility.Utility;
+import com.nopcommerce.demo.utility.Utility;
 
 public class DesktopsPage  extends Utility {
+    public DesktopsPage(){
+        PageFactory.initElements(driver,this);
+    }
 
-    By desktopsText = By.xpath("//a[contains(text(),\"Desktops\")]");
-    By sortBy = By.xpath("//select[@id=\"products-orderby\"]");
-    By display = By.xpath("//select[@id=\"products-pagesize\"]");
+    @FindBy(xpath = "//a[contains(text(),\"Desktops\")]")
+    WebElement desktopsText;
 
-    By selectProductList = By.xpath("//a[@class=\"viewmode-icon list\"]");
+    @FindBy(xpath = "//select[@id=\"products-orderby\"]")
+    WebElement sortBy;
 
-    //By buildYourOwnComputerButton = By.linkText("Build your own computer");
-    By buildYourOwnComputerButton = By.xpath("//h2[@class='product-title']//a[contains(text(),'Build your own computer')]");
+    @FindBy(xpath = "//select[@id=\"products-pagesize\"]")
+    WebElement display;
+
+    @FindBy(xpath = "//a[@class=\"viewmode-icon list\"]")
+    WebElement selectProductList;
+
+    @FindBy(xpath = "//h2[@class='product-title']//a[contains(text(),'Build your own computer')]")
+    WebElement buildYourOwnComputerButton;
+
 
     public void clickOnBuildYourOwnComputer(){
-        Reporter.log("Clicking on Build your own computer: " + buildYourOwnComputerButton.toString());
-        clickOnElement(buildYourOwnComputerButton);
+        clickOnElement((WebElement) buildYourOwnComputerButton);
     }
 
 
     public String getDesktopsText() {
-        Reporter.log("Desktops link was pressed " + desktopsText.toString());
         return getTextFromElement(desktopsText);
     }
 
 
     public void getSortBy(){
-        Reporter.log("Sort by text " + sortBy.toString());
         selectByIndexFromDropDown(sortBy, 2);
     }
 
     public void getDisplay(){
-        Reporter.log("Display by text " + sortBy.toString());
         selectByValueFromDropDown(display,"3");
     }
 
     public void getSelectProductList(){
-        Reporter.log("Product list icons " + selectProductList.toString());
-        clickOnElement(selectProductList);
+        clickOnElement((WebElement) selectProductList);
     }
 
 }

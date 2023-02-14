@@ -8,6 +8,8 @@ import org.testng.Assert;
 import org.testng.Reporter;
 import org.testng.annotations.Test;
 
+
+
 public class RegisterPageTest extends TestBase {
 
     HomePage homepage = new HomePage();
@@ -18,7 +20,6 @@ public class RegisterPageTest extends TestBase {
     public void verifyUserShouldNavigateToRegisterPageSuccessfully() {
         homepage.clickOnRegisterLink();
         registerPage.clickOnRegisterButton();
-        Reporter.log("User is on Register Page, Verified 'Register' Text");
     }
 
     @Test
@@ -29,22 +30,22 @@ public class RegisterPageTest extends TestBase {
         String actualFirstNameError = registerPage.getFirstNameErrorMessage();
         String expectedFirstNameError = "First name is required.";
         Assert.assertEquals(actualFirstNameError, expectedFirstNameError);
-        Reporter.log("Verified the error message 'First name is required.' ");
+
 
         String actualLastNameError = registerPage.getLastNameErrorMessage();
         String expectedLastNameError = "Last name is required.";
         Assert.assertEquals(actualLastNameError, expectedLastNameError);
-        Reporter.log("Verified the error message 'Last name is required.' ");
+
 
         String actualEmailError = registerPage.getEmailErrorMessage();
         String expectedEmailError = "Email is required.";
         Assert.assertEquals(actualEmailError, expectedEmailError);
-        Reporter.log("Verified the error message 'Email is required.' ");
+
 
         String actualPasswordError = registerPage.getPasswordErrorMessage();
         String expectedPasswordError = "Password is required.";
         Assert.assertEquals(actualPasswordError, expectedPasswordError);
-        Reporter.log("Verified the error message 'Password is required.' ");
+
     }
 
     @Test

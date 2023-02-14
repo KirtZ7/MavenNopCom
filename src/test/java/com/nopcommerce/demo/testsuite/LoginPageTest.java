@@ -1,20 +1,25 @@
 package com.nopcommerce.demo.testsuite;
 
+import com.nopcommerce.demo.pages.ComputerPage;
 import com.nopcommerce.demo.pages.HomePage;
 import com.nopcommerce.demo.pages.LoginPage;
 import com.nopcommerce.demo.testbase.TestBase;
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 
-/**
- * Created by Bhavesh
- * Recreated by Kirtan
- */
+
 public class LoginPageTest extends TestBase {
     HomePage homepage = new HomePage();
     LoginPage loginPage= new LoginPage();
+
+    @BeforeMethod(alwaysRun = true)
+    public void inIt(){
+        homepage = new HomePage();
+        loginPage = new LoginPage();
+    }
 
     @Test
     public void userShouldNavigateToLoginPageSuccessfully() {

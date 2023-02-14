@@ -1,52 +1,71 @@
 package com.nopcommerce.demo.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.testng.Reporter;
-import utility.Utility;
+import com.nopcommerce.demo.utility.Utility;
 
 public class RegisterPage extends Utility {
 
-    By registerText = By.xpath("//h1[contains(text(),\"Register\")]");
-
-    By maleFemaleRadio = By.xpath("//input[@type='radio']");
-
-    By firstName = By.xpath("//input[@id='FirstName']");
-
-    By lastName = By.xpath("//input[@id='LastName']");
-
-    By dayDOB = By.xpath("//select[@name='DateOfBirthDay']");
-
-    By monthDOB = By.xpath("//select[@name='DateOfBirthMonth']");
-
-    By yearDOB = By.xpath("//select[@name='DateOfBirthYear']");
-
-    By eMailField = By.xpath("//input[@id='Email']");
-
-    By passwordField = By.xpath("//input[@id='Password']");
-
-    By confirmPasswordField = By.xpath("//input[@id='ConfirmPassword']");
-
-    By registerButton = By.xpath("//a[@class='ico-register']");
-
-    By registerButtonFinish = By.xpath("//button[@id='register-button']");
-
-    By firstNameMsg = By.xpath("//span[@id='FirstName-error']");
-
-    By lastNameMsg = By.xpath("//span[@id='LastName-error']");
-
-    By eMailMsg = By.xpath("//span[@id='Email-error']");
-
-    By passwordMsg = By.xpath("//span[@id='Password-error']");
-
-    By registrationMsg = By.xpath("//div[@class='result']");
-
-    By continueButton = By.xpath("//a[@class='button-1 register-continue-button']");
-
-
-    public void checkOnRegisterPage(){
-        waitUntilVisibilityOfElementLocated(registerText,5);
-        Reporter.log("On the register page " + registerButton.toString());
+    public RegisterPage(){
+        PageFactory.initElements(driver,this);
     }
+
+    @FindBy(xpath = "//input[@type='radio']")
+    WebElement maleFemaleRadio;
+
+    @FindBy(xpath = "//input[@id='FirstName']")
+    WebElement firstName;
+
+    @FindBy(xpath = "//input[@id='LastName']")
+    WebElement lastName;
+
+    @FindBy(xpath = "//select[@name='DateOfBirthDay']")
+    WebElement dayDOB;
+
+    @FindBy(xpath = "//select[@name='DateOfBirthMonth']")
+    WebElement monthDOB;
+
+    @FindBy(xpath = "//select[@name='DateOfBirthYear']")
+    WebElement yearDOB;
+
+    @FindBy(xpath = "//input[@id='Email']")
+    WebElement eMailField;
+
+    @FindBy(xpath = "//input[@id='Password']")
+    WebElement passwordField;
+
+    @FindBy(xpath = "//input[@id='ConfirmPassword']")
+    WebElement confirmPasswordField;
+
+    @FindBy(xpath = "//a[@class='ico-register']")
+    WebElement registerButton;
+
+    @FindBy(xpath = "//button[@id='register-button']")
+    WebElement registerButtonFinish;
+
+    @FindBy(xpath = "//span[@id='FirstName-error']")
+    WebElement firstNameMsg;
+
+    @FindBy(xpath = "//span[@id='LastName-error']")
+    WebElement lastNameMsg;
+
+    @FindBy(xpath = "//span[@id='Email-error']")
+    WebElement eMailMsg;
+
+    @FindBy(xpath = "//span[@id='Password-error']")
+    WebElement passwordMsg;
+
+    @FindBy(xpath = "//div[@class='result']")
+    WebElement registrationMsg;
+
+    @FindBy(xpath = "//a[@class='button-1 register-continue-button']")
+    WebElement continueButton;
+
+
+
 
     public void clickOnMaleRadioButton() {
         clickOnElement(maleFemaleRadio);
@@ -67,12 +86,10 @@ public class RegisterPage extends Utility {
     }
 
     public void selectMonthDOB() {
-        Reporter.log("Choose Day " + monthDOB.toString());
         selectByContainsTextFromDropDown(monthDOB,"April");
     }
 
     public void selectYearDOB() {
-        Reporter.log("Choose Day " + yearDOB.toString());
         selectByContainsTextFromDropDown(yearDOB,"2000");
     }
 
@@ -89,7 +106,7 @@ public class RegisterPage extends Utility {
     }
 
     public void clickOnRegisterButton() {
-        driver.findElement(registerButton).click();
+        clickOnElement(registerButton);
     }
 
     public String getFirstNameErrorMessage() {
@@ -121,6 +138,20 @@ public class RegisterPage extends Utility {
     public void clickOnRegisterButtonFinish(){
         Reporter.log("Clicked on REGISTER button on page " + registerButtonFinish.toString());
         clickOnElement(registerButtonFinish);
+    }
+
+    public void register(String fName, String lName, String email,String pass, String cpass) throws InterruptedException {
+        sendTextToElement(firstName,fName);
+        Thread.sleep(2000);
+        sendTextToElement(lastName,lName);
+        Thread.sleep(2000);
+        sendTextToElement(eMailField,email);
+        Thread.sleep(2000);
+        sendTextToElement(passwordField,pass);
+        Thread.sleep(2000);
+        sendTextToElement(confirmPasswordField,cpass);
+        Thread.sleep(2000);
+        clickOnElement(registerButton);
     }
 
 }

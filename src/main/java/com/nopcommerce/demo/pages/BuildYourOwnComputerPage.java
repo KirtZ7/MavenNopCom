@@ -1,24 +1,48 @@
 package com.nopcommerce.demo.pages;
 
-import org.openqa.selenium.By;
-import org.testng.Reporter;
-import utility.Utility;
+
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.testng.Assert;
+import com.nopcommerce.demo.utility.Utility;
 
 
 public class BuildYourOwnComputerPage extends Utility {
 
-    By buildYourOwnComputerText = By.xpath("//div[@class='page-title']/h1");
-    By processorDropDown = By.xpath("//select[@id='product_attribute_1']]");
-    By ramDropDown = By.xpath("//select[@id='product_attribute_2']");
-    By hddRadios = By.xpath("//ul[@data-attr='3']");
-    By osRadio = By.xpath("//ul[@data-attr='4']");
-    By softwareCheckBoxes = By.xpath("//ul[@data-attr='5']");
-    By addToCartButton = By.xpath("//button[@id='add-to-cart-button-1']");
-    By productAddedToCartMessage = By.xpath("//div[@class='bar-notification success']");
+    public BuildYourOwnComputerPage(){
+        PageFactory.initElements(driver,this);
+    }
 
-    public String verifyBuildYourOwnComputerText(){
-        Reporter.log("Build your own computer text displayed: " + this.buildYourOwnComputerText.toString());
-        return getTextFromElement(buildYourOwnComputerText);
+    @FindBy(xpath = "//div[@class='page-title']/h1")
+    WebElement buildYourOwnComputerText;
+
+    @FindBy(xpath = "//select[@id='product_attribute_1']")
+    WebElement processorDropDown;
+
+    @FindBy(xpath = "//select[@id='product_attribute_2']")
+    WebElement ramDropDown;
+
+    @FindBy(xpath = "//input[@id='product_attribute_3_6']")
+    WebElement hddRadios;
+
+    @FindBy(xpath = "//input[@id='product_attribute_4_9']")
+    WebElement osRadio;
+
+    @FindBy(xpath = "//input[@id='product_attribute_5_11']")
+    WebElement softwareCheckBoxes;
+
+    @FindBy(xpath = "//button[@id='add-to-cart-button-1']")
+    WebElement addToCartButton;
+
+    @FindBy(xpath = "//p[@class='content']")
+    WebElement productAddedToCartMessage;
+
+
+    public void verifyBuildYourOwnComputerText(){
+        String actualText = productAddedToCartMessage.getText();
+        String expectedText = "The product has been added to your shopping cart";
+        Assert.assertEquals(actualText, expectedText, "The product is not added to the cart");
     }
 
 
@@ -30,16 +54,16 @@ public class BuildYourOwnComputerPage extends Utility {
         selectByVisibleTextFromDropDown(ramDropDown, ram);
     }
 
-    public void selectHDD(String hdd) {
-        selectRadioButton(hddRadios, hdd);
+    public void chooseHDD() {
+        clickOnElement(hddRadios);
     }
 
-    public void selectOS(String os) {
-        selectRadioButton(osRadio, os);
+    public void chooseOS() {
+        clickOnElement(osRadio);
     }
 
-    public void selectSoftware(String software) {
-        selectCheckBox(softwareCheckBoxes, software);
+    public void chooseSoftware() {
+        clickOnElement(softwareCheckBoxes);
     }
 
     public void clickOnAddToCartButton() {

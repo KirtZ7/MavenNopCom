@@ -1,23 +1,34 @@
 package com.nopcommerce.demo.pages;
 
 import org.openqa.selenium.By;
-import utility.Utility;
+import com.nopcommerce.demo.utility.Utility;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
-import java.util.NoSuchElementException;
-
-/**
- * Created by Bhavesh
- * Recreated by Kirtan
- */
 public class LoginPage extends Utility {
 
-    By welcomeText = By.xpath("//h1[contains(text(),'Welcome, Please Sign In!')]");
-    By emailField = By.id("Email");
-    By passwordField=By.name("Password");
-    By loginButton = By.xpath("//button[contains(text(),'Log in')]");
+    public LoginPage(){
+        PageFactory.initElements(driver,this);
+    }
 
-    By logOutButton = By.xpath("//a[@class=\"ico-logout\"]");
-    By errorMag = By.xpath("//div[@class='message-error validation-summary-errors']");
+    @FindBy(xpath = "//h1[contains(text(),'Welcome, Please Sign In!')]")
+    WebElement welcomeText;
+
+    @FindBy(id = "Email")
+    WebElement emailField;
+
+    @FindBy(name = "Password")
+    WebElement passwordField;
+
+    @FindBy(xpath = "//button[contains(text(),'Log in')]")
+    WebElement loginButton;
+
+    @FindBy(xpath = "//a[@class=\"ico-logout\"]")
+    WebElement logOutButton;
+
+    @FindBy(xpath = "//div[@class='message-error validation-summary-errors']")
+    WebElement errorMag;
 
     public String getWelcomeText(){
         return getTextFromElement(welcomeText);

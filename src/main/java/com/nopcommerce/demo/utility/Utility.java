@@ -1,29 +1,56 @@
-package utility;
+package com.nopcommerce.demo.utility;
 
-import com.google.common.base.Function;
-import com.nopcommerce.demo.driverfactory.ManageDriver;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.*;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import com.nopcommerce.demo.driverfactory.ManageDriver;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.Date;
 import java.util.List;
+import java.util.function.Function;
 
-/**
- * Recreated by Kirtan
- */
 public class Utility extends ManageDriver {
+    /*Utility Class extends to ManageDriver for the driver to finding locators
+     *All common methods are fixed in the utility Class.
+     *
+     * This method will generate random number
+     */
+    public int generateRandomNumber() {
+        return (int) (Math.random() * 5000 + 1);
+
+    }
+
+    /**
+     * This method will generate random string
+     */
+    public static String getRandomString(int length) {
+        StringBuilder sb = new StringBuilder();
+        String characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        for (int i = 0; i < length; i++) {
+            int index = (int) (Math.random() * characters.length());
+            sb.append(characters.charAt(index));
+        }
+        return sb.toString();
+    }
 
     /**
      * This method will click on element
      */
     public void clickOnElement(By by) {
-        WebElement loginLink = driver.findElement(by);
-        loginLink.click();
+        WebElement element = driver.findElement(by);
+        element.click();
+    }
+
+    public void clickOnElement(WebElement element) {
+        element.click();
     }
 
     /**
@@ -33,11 +60,39 @@ public class Utility extends ManageDriver {
         return driver.findElement(by).getText();
     }
 
+    public String getTextFromElement(WebElement element) {
+        return element.getText();
+    }
+
     /**
      * This method will send text on element
      */
     public void sendTextToElement(By by, String text) {
         driver.findElement(by).sendKeys(text);
+    }
+
+    public void sendTextToElement(WebElement element, String str) {
+        element.sendKeys(str);
+    }
+
+    /**
+     * This method will return list of web elements
+     */
+    public List<WebElement> webElementList(By by) {
+        return driver.findElements(by);
+    }
+
+    /**
+     * This method will clear previous stored data
+     */
+    public void clearTextFromField(By by) {
+        driver.findElement(by).sendKeys(Keys.CONTROL + "a");
+        driver.findElement(by).sendKeys(Keys.DELETE);
+    }
+
+    public void sendTabAndEnterKey(By by) {
+        driver.findElement(by).sendKeys(Keys.TAB);
+        //driver.findElement(by).sendKeys(Keys.ENTER);
     }
 
 //*************************** Alert Methods ***************************************//
@@ -89,6 +144,10 @@ public class Utility extends ManageDriver {
         select.selectByVisibleText(text);
     }
 
+    public void selectByVisibleTextFromDropDown(WebElement element, String text) {
+        new Select(element).selectByVisibleText(text);
+    }
+
     /**
      * This method will select the option by value
      */
@@ -96,11 +155,19 @@ public class Utility extends ManageDriver {
         new Select(driver.findElement(by)).selectByValue(value);
     }
 
+    public void selectByValueFromDropDown(WebElement element, String value) {
+        new Select(element).selectByValue(value);
+    }
+
     /**
      * This method will select the option by index
      */
     public void selectByIndexFromDropDown(By by, int index) {
         new Select(driver.findElement(by)).selectByIndex(index);
+    }
+
+    public void selectByIndexFromDropDown(WebElement element, int index) {
+        new Select(element).selectByIndex(index);
     }
 
     /**
@@ -115,19 +182,15 @@ public class Utility extends ManageDriver {
         }
     }
 
-    //selectRadioButton Method
-    public void selectRadioButton(By locator, String os) {
-        WebElement radioButton = driver.findElement(locator);
-        radioButton.click();
-    }
-
-    //selectCheckBox Method
-    public void selectCheckBox(By locator, String software) {
-        WebElement checkBox = driver.findElement(locator);
-        if (!checkBox.isSelected()) {
-            checkBox.click();
+    public void selectByContainsTextFromDropDown(WebElement element, String text) {
+        List<WebElement> allOptions = new Select(element).getOptions();
+        for (WebElement options : allOptions) {
+            if (options.getText().contains(text)) {
+                options.click();
+            }
         }
     }
+
 //*************************** Window Handle Methods ***************************************//
 
     /**
@@ -171,12 +234,22 @@ public class Utility extends ManageDriver {
         actions.moveToElement(driver.findElement(by)).build().perform();
     }
 
+    public void mouseHoverToElement(WebElement element) {
+        Actions actions = new Actions(driver);
+        actions.moveToElement(element).perform();
+    }
+
     /**
      * This method will use to hover mouse on element and click
      */
     public void mouseHoverToElementAndClick(By by) {
         Actions actions = new Actions(driver);
-        actions.moveToElement(driver.findElement(by)).click().build().perform();
+        actions.moveToElement(driver.findElement(by)).click().perform();
+    }
+
+    public void mouseHoverToElementAndClick(WebElement element) {
+        Actions actions = new Actions(driver);
+        actions.moveToElement(element).click().perform();
     }
 
     //************************** Waits Methods *********************************************//
@@ -186,7 +259,7 @@ public class Utility extends ManageDriver {
      */
     public WebElement waitUntilVisibilityOfElementLocated(By by, int time) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(time));
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+        return wait.until(driver -> driver.findElement(by));
     }
 
     public WebElement waitForElementWithFluentWait(By by, int time, int pollingTime) {
@@ -203,11 +276,82 @@ public class Utility extends ManageDriver {
         return element;
     }
 
+//***************************** Is Display Methods **********************************************//
+    /**
+     * This method will verify that element is displayed
+     */
+    public boolean verifyThatElementIsDisplayed(By by) {
+        WebElement element = driver.findElement(by);
+        if (element.isDisplayed()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean verifyThatElementIsDisplayed(WebElement element) {
+        if (element.isDisplayed()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * This method will verify that element is displayed
+     */
+    public boolean verifyThatTextIsDisplayed(By by, String text) {
+        WebElement element = driver.findElement(by);
+        if (text.equals(element.getText())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean verifyThatTextIsDisplayed(WebElement element, String text) {
+        if (text.equals(element.getText())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     //************************** ScreenShot Methods *********************************************//
+
+    /**
+     * This method will take screenshot
+     */
+    public static void takeScreenShot() {
+        String filePath = System.getProperty("user.dir") + "/src/main/java/com/nopcommerce/demo/screenshots/";
+        TakesScreenshot screenshot = (TakesScreenshot) driver;
+        File scr1 = screenshot.getScreenshotAs(OutputType.FILE);
+        try {
+            FileUtils.copyFile(scr1, new File(filePath + getRandomString(10) + ".jpg"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static String currentTimeStamp() {
         Date d = new Date();
         return d.toString().replace(":", "_").replace(" ", "_");
+    }
+
+    public static String getScreenshot(WebDriver driver, String screenshotName) {
+        String dateName = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
+        TakesScreenshot ts = (TakesScreenshot) driver;
+        File source = ts.getScreenshotAs(OutputType.FILE);
+
+        // After execution, you could see a folder "FailedTestsScreenshots" under screenshot folder
+        String destination = System.getProperty("user.dir") + "/src/main/java/com/demo/nopcommerce/demo/screenshots/" + screenshotName + dateName + ".png";
+        File finalDestination = new File(destination);
+        try {
+            FileUtils.copyFile(source, finalDestination);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return destination;
     }
 
     /*
@@ -226,5 +370,4 @@ public class Utility extends ManageDriver {
         }
         return destination;
     }
-
 }

@@ -7,6 +7,7 @@ import com.nopcommerce.demo.pages.DesktopsPage;
 import com.nopcommerce.demo.pages.HomePage;
 import com.nopcommerce.demo.testbase.TestBase;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class BuildYourOwnComputerPageTest extends TestBase {
@@ -18,20 +19,26 @@ public class BuildYourOwnComputerPageTest extends TestBase {
 
     BuildYourOwnComputerPage buildYourOwnComputerPage = new BuildYourOwnComputerPage();
 
+    @BeforeMethod(alwaysRun = true)
+    public void inIt(){
+        homePage = new HomePage();
+        computerPage = new ComputerPage();
+        desktopsPage = new DesktopsPage();
+        buildYourOwnComputerPage = new BuildYourOwnComputerPage();
+    }
+
     @Test
     public void verifyThatUserShouldBuildYouOwnComputerAndAddThemToCartSuccessfully() {
         homePage.clickOnComputersMenu();
         computerPage.clickOnDesktopLink();
         desktopsPage.clickOnBuildYourOwnComputer();
-        buildYourOwnComputerPage.selectProcessor("");
+        buildYourOwnComputerPage.selectProcessor("2.2 GHz Intel Pentium Dual-Core E2200");
         buildYourOwnComputerPage.selectRam("2 GB");
-        buildYourOwnComputerPage.selectHDD("320 GB");
-        buildYourOwnComputerPage.selectOS("Vista Premium [+$60.00]");
-        buildYourOwnComputerPage.selectSoftware("Acrobat Reader [+$10.00]");
+        buildYourOwnComputerPage.chooseHDD();
+        buildYourOwnComputerPage.chooseOS();
+        buildYourOwnComputerPage.chooseSoftware();
         buildYourOwnComputerPage.clickOnAddToCartButton();
-        String actualText = buildYourOwnComputerPage.verifyBuildYourOwnComputerText();
-        String expectedText = "The product has been added to your shopping cart";
-        Assert.assertEquals(actualText, expectedText, "The product is not added to the cart");
+        buildYourOwnComputerPage.verifyBuildYourOwnComputerText();
     }
 
 }

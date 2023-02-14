@@ -4,13 +4,12 @@ import com.nopcommerce.demo.propertyreader.PropertyReader;
 import org.openqa.selenium.By;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
-import utility.Utility;
+import com.nopcommerce.demo.utility.Utility;
 
 import java.util.NoSuchElementException;
 
 /**
- * Created by Bhavesh
- * recreated by Kirtan
+ * created by Kirtan
  */
 public class TestBase extends Utility {
 
